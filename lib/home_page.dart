@@ -84,7 +84,6 @@ class HomePageContent extends StatelessWidget {
   final List<dynamic> carouselItems = [
     'lib/images/wedding__banner.png',
     'lib/images/Birthday_banner.png',
-    'lib/images/coldplay.jpeg',
     'lib/images/concert_NMIMS.jpg',
     'lib/images/formal_banner.jpg',
 
