@@ -85,6 +85,10 @@ class HomePageContent extends StatelessWidget {
     'lib/images/wedding__banner.png',
     'lib/images/Birthday_banner.png',
     'lib/images/coldplay.jpeg',
+    'lib/images/concert_NMIMS.jpg',
+    'lib/images/formal_banner.jpg',
+
+
   ];
 
   @override
@@ -350,3 +354,4 @@ class HomePageContent extends StatelessWidget {
     );
   }
 }
+
