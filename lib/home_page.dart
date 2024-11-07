@@ -80,21 +80,15 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class HomePageContent extends StatefulWidget {
-  @override
-  _HomePageContentState createState() => _HomePageContentState();
-}
-
-class _HomePageContentState extends State<HomePageContent> {
+class HomePageContent extends StatelessWidget {
   final List<dynamic> carouselItems = [
     'lib/images/wedding__banner.png',
     'lib/images/Birthday_banner.png',
-    'lib/images/coldplay.jpeg',
     'lib/images/concert_NMIMS.jpg',
     'lib/images/formal_banner.jpg',
-  ];
 
-  DateTime? selectedDate; // Declare the selectedDate variable
+
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -138,34 +132,51 @@ class _HomePageContentState extends State<HomePageContent> {
                           ],
                         ),
                         IconButton(
-                          icon: Icon(Icons.calendar_month, color: Colors.black),
+                          icon: Icon(Icons.notifications, color: Colors.yellowAccent),
                           onPressed: () async {
-                            DateTime? pickedDate = await showDatePicker(
+                            DateTime? selectedDate = await showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime(2000),
                               lastDate: DateTime(2100),
                             );
-
-                            // If a date is selected, update the state
-                            if (pickedDate != null && pickedDate != selectedDate) {
-                              setState(() {
-                                selectedDate = pickedDate;
-                              });
-                            }
                           },
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
-                  // Display selected date
-                  if (selectedDate != null)
-                    Text(
-                      'Selected Date: ${selectedDate!.toLocal()}'.split(' ')[0], // Only show date part (YYYY-MM-DD)
-                      style: TextStyle(fontSize: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    child: TextField(
+                      controller: TextEditingController(),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white.withOpacity(0.8),
+                        hintText: 'Search your Event',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        hintStyle: TextStyle(color: Colors.black54),
+                      ),
+                      style: TextStyle(color: Colors.black),
+                      onSubmitted: (value) {
+                        // Implement search functionality here
+                      },
                     ),
-
+                  ),
+                  SizedBox(
+                    height: 130,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        buildEventTile(context, 'lib/images/wedding.jpeg', 'Wedding', WeddingPage()),
+                        buildEventTile(context, 'lib/images/birthday.jpeg', 'Birthday', BirthdayPage()),
+                        buildEventTile(context, 'lib/images/concert.jpg', 'Concert', ConcertPage()),
+                        buildEventTile(context, 'lib/images/Events.jpeg', 'Events', EventsPage()),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -314,9 +325,9 @@ class _HomePageContentState extends State<HomePageContent> {
     return Padding(
       padding: const EdgeInsets.all(2.0), // Reduced padding for larger image appearance
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 3.0, vertical: 5.0), // Adjust padding to make the content more compact
+        padding: EdgeInsets.symmetric(horizontal: 3.0, vertical: 4.0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(20),
           color: Colors.white,
         ),
         child: Column(
@@ -324,15 +335,16 @@ class _HomePageContentState extends State<HomePageContent> {
           children: [
             Image.asset(
               imagePath,
-              height: 76,
-              width: 120,
+              height: 90, // Adjusted size for better visibility
+              width: 150,
             ),
-            SizedBox(height: 5.0),
+            SizedBox(height: 2.0),
             Text(
               title,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
+                color: Colors.grey,
               ),
             ),
           ],
